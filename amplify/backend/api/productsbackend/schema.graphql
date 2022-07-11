@@ -1,0 +1,44 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+# 商品基本情報
+type Products @model {
+  id: ID!
+  code: String!
+  name: String!
+  price: Float!
+  futureOption: FutureOptions @belongsTo
+}
+
+# フューチャー体系
+type FutureOptions @model {
+  id: ID!
+  code: String!
+  name: String!
+  details: [FutureOptionDetails] @hasMany
+}
+
+# フューチャー明細
+type FutureOptionDetails @model {
+  id: ID!
+  no: Int!
+  name: String!
+  values: [FutureOptionDetailValues] @hasMany
+}
+
+# フューチャー別オプション明細
+type FutureOptionDetailValues @model {
+  id: ID!
+  code: String!
+  name: String!
+}
+
+#派生商品明細
+type DerivedProduct @model {
+  id: ID!
+  product: Product @belongsTo
+  name: String!
+  futureOptionValues: [FutureOptionDetailValues] @hasMany
+  price: Float!
+}
