@@ -111,8 +111,8 @@ type CustomerUnitPrice @model {
 type SpecialSale @model {
   id: ID!
   code: String!
-  startDate: AWSDatetime!
-  endDate: AWSDatetime!
+  startDate: AWSDateTime!
+  endDate: AWSDateTime!
 }
 
 # 特売単価
