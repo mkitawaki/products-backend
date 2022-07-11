@@ -8,7 +8,8 @@ type Products @model {
   code: String!
   name: String!
   price: Float!
-  futureOption: FutureOptions @belongsTo
+  futureOption: FutureOptions
+  derivedProducts: [DerivedProducts] @hasMany
 }
 
 # フューチャー体系
@@ -35,9 +36,9 @@ type FutureOptionDetailValues @model {
 }
 
 #派生商品明細
-type DerivedProduct @model {
+type DerivedProducts @model {
   id: ID!
-  product: Product @belongsTo
+  product: Products @belongsTo
   name: String!
   futureOptionValues: [FutureOptionDetailValues] @hasMany
   price: Float!
