@@ -74,3 +74,35 @@ type DerivedProduct @model {
   futureOptionValues: [FutureOptionDetailValue] @hasMany
   price: Float!
 }
+
+# 仕入れ先
+type Vendor @model {
+    id: ID!
+    code: String!
+    name: String!
+}
+
+# 仕入れ先別契約単価
+type VendorUnitPrice @model {
+    id: ID!
+    product: Product!
+    vendor: Vendor!
+    effectiveDate: AWSDate!
+    purchasePrice: Float!
+}
+
+# 得意先
+type Customer @model {
+    id: ID!
+    code: String!
+    name: String!
+}
+
+# 得意先別契約単価
+type CustomerUnitPrice @model {
+    id: ID!
+    product: Product!
+    customer: Customer!
+    effectiveDate: AWSDate!
+    salesPrice: Float!
+}
