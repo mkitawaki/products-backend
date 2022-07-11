@@ -8,7 +8,7 @@ type Product @model {
   code: String!
   name: String!
   price: Float!
-  unit: Unit
+  unit: Unit @hasOne
   futureOption: FutureOption
   derivedProducts: [DerivedProduct] @hasMany
 }
@@ -31,7 +31,7 @@ type Combo @model {
 type ComboDetail @model {
     id: ID!
     code: String!
-    product: Product
+    product: Product @hasOne
     quantity: Float!
 }
 
@@ -85,8 +85,8 @@ type Vendor @model {
 # 仕入れ先別契約単価
 type VendorUnitPrice @model {
     id: ID!
-    product: Product!
-    vendor: Vendor!
+    product: Product! @hasOne
+    vendor: Vendor! @hasOne
     effectiveDate: AWSDate!
     purchasePrice: Float!
 }
@@ -101,8 +101,32 @@ type Customer @model {
 # 得意先別契約単価
 type CustomerUnitPrice @model {
     id: ID!
-    product: Product!
-    customer: Customer!
+    product: Product! @hasOne
+    customer: Customer! @hasOne
     effectiveDate: AWSDate!
     salesPrice: Float!
+}
+
+# 特売
+type SpecialSale @model {
+  id: ID!
+  code: String!
+  startDate: AWSDatetime!
+  endDate: AWSDatetime!
+}
+
+# 特売単価
+type SpecialSalePrice @model {
+  id: ID!
+  no: Int!
+  product: Product! @hasOne
+  unitPrice: Float!
+}
+
+# レンジ単価
+type RangePrice @model {
+  id: ID!
+  product: Product! @hasOne
+  fromAmout: Float!
+  unitPrice: Float!
 }
